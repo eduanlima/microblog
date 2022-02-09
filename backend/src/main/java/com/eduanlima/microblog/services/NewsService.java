@@ -21,4 +21,24 @@ public class NewsService {
 		Page<News> list = newsRepository.findAll(pageRequest);
 		return list.map(x -> new NewsDTO(x));
 	}
+
+	@Transactional
+	public NewsDTO insert(NewsDTO dto) {
+		News entity = new News();
+		
+		entity = setDtoInEntity(dto, entity);
+		entity = newsRepository.save(entity);
+		
+		return new NewsDTO(entity);
+	}
+	
+	private News setDtoInEntity(NewsDTO dto, News entity) {
+		entity.setTitle(dto.getTitle());
+		entity.setDate(dto.getDate());
+		entity.setContent(dto.getContent());
+		entity.setAuthor(dto.getAuthor());
+		entity.setTags(dto.getTags());
+		
+		return entity;
+	}
 }
