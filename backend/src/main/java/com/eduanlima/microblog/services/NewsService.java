@@ -41,6 +41,17 @@ public class NewsService {
 		return new NewsDTO(entity);
 	}
 	
+	@Transactional
+	public NewsDTO update(Integer id, NewsDTO dto) {
+		News entity = new News();
+		
+		entity = newsRepository.getById(id);
+		entity = setDtoInEntity(dto, entity);
+		entity = newsRepository.save(entity);
+		
+		return new NewsDTO(entity);
+	}
+	
 	private News setDtoInEntity(NewsDTO dto, News entity) {
 		entity.setTitle(dto.getTitle());
 		entity.setDate(dto.getDate());
