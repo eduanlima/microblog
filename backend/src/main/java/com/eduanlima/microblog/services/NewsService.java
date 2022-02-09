@@ -52,6 +52,15 @@ public class NewsService {
 		return new NewsDTO(entity);
 	}
 	
+	public void delete(Integer id) {
+		try {
+			newsRepository.deleteById(id);
+		}
+		catch(Exception e) {
+			new RuntimeException(e);
+		}
+	}
+	
 	private News setDtoInEntity(NewsDTO dto, News entity) {
 		entity.setTitle(dto.getTitle());
 		entity.setDate(dto.getDate());
