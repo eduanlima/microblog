@@ -1,5 +1,7 @@
 package com.eduanlima.microblog.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,13 @@ public class NewsService {
 	public Page<NewsDTO> findAllPaged(PageRequest pageRequest) {
 		Page<News> list = newsRepository.findAll(pageRequest);
 		return list.map(x -> new NewsDTO(x));
+	}
+	
+	@Transactional(readOnly = true)
+	public NewsDTO findById(Integer id) {
+		Optional<News> obj = newsRepository.findById(id);
+		News entity = obj.get();
+		return new NewsDTO(entity);
 	}
 
 	@Transactional
