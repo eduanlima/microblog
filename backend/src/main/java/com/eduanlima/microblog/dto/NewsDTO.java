@@ -18,7 +18,7 @@ public class NewsDTO implements Serializable{
 	private String author;
 	private String tags;
 	
-	Set<CommentDTO> list = new HashSet<>();
+	Set<CommentDTO> comments = new HashSet<>();
 
 	public NewsDTO() {
 	}
@@ -89,11 +89,11 @@ public class NewsDTO implements Serializable{
 		this.tags = tags;
 	}
 
-	public Set<CommentDTO> getList() {
-		return list;
+	public Set<CommentDTO> getComments() {
+		return comments;
 	}
 
-	public void setList(Set<CommentDTO> list) {
-		this.list = list;
+	public void setComments(Set<CommentDTO> comments) {
+		this.comments = comments;
 	}
 }
