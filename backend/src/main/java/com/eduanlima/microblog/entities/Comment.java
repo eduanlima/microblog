@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "tb_comment")
 public class Comment implements Serializable {
@@ -32,6 +34,7 @@ public class Comment implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "news")
+	@JsonIgnoreProperties("news")
 	private News news;
 	
 	public Comment() {

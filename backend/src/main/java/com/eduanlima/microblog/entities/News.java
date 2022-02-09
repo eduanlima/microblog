@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name= "tb_news")
 public class News implements Serializable{
@@ -36,7 +38,7 @@ public class News implements Serializable{
 	private String tags;
 	
 	@OneToMany(mappedBy = "news", cascade = CascadeType.REMOVE)
-	Set<Comment> list = new HashSet<>();
+	Set<Comment> comments = new HashSet<>();
 	
 	public News() {
 	}
