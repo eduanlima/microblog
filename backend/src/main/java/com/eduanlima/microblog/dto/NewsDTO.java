@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.eduanlima.microblog.entities.Comment;
 import com.eduanlima.microblog.entities.News;
 
 public class NewsDTO implements Serializable{
@@ -18,7 +19,7 @@ public class NewsDTO implements Serializable{
 	private String author;
 	private String tags;
 	
-	Set<CommentDTO> comments = new HashSet<>();
+	Set<Comment> comments = new HashSet<>();
 
 	public NewsDTO() {
 	}
@@ -39,8 +40,9 @@ public class NewsDTO implements Serializable{
 		content = news.getContent();
 		author = news.getAuthor();
 		tags = news.getTags();
+		comments = news.getComments();
 	}
-
+		
 	public Integer getId() {
 		return id;
 	}
@@ -89,11 +91,7 @@ public class NewsDTO implements Serializable{
 		this.tags = tags;
 	}
 
-	public Set<CommentDTO> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
-	}
-
-	public void setComments(Set<CommentDTO> comments) {
-		this.comments = comments;
 	}
 }

@@ -9,11 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_comment")
@@ -32,19 +28,13 @@ public class Comment implements Serializable {
 	@Column(name = "date_created", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 	
-	@ManyToOne
-	@JoinColumn(name = "news")
-	@JsonIgnoreProperties("news")
-	private News news;
-	
 	public Comment() {
 	}
 
-	public Comment(String content, String author, Instant date, News news) {
+	public Comment(String content, String author, Instant date) {
 		this.content = content;
 		this.author = author;
 		this.date = date;
-		this.news = news;
 	}
 
 	public Integer getId() {
@@ -77,14 +67,6 @@ public class Comment implements Serializable {
 
 	public void setDate(Instant date) {
 		this.date = date;
-	}
-
-	public News getNews() {
-		return news;
-	}
-
-	public void setNews(News news) {
-		this.news = news;
 	}
 
 	@Override

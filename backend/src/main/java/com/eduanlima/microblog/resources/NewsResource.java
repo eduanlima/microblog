@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.eduanlima.microblog.dto.CommentDTO;
 import com.eduanlima.microblog.dto.NewsDTO;
 import com.eduanlima.microblog.services.NewsService;
 
@@ -66,6 +67,12 @@ public class NewsResource {
 	public ResponseEntity<NewsDTO> update(@PathVariable Integer id, @RequestBody NewsDTO dto){
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PostMapping(value = "/{id}/comments")
+	public ResponseEntity<NewsDTO> insertComment(@PathVariable Integer id, @RequestBody CommentDTO commentDto){
+		NewsDTO newsDto = service.insertComment(id, commentDto);
+		return ResponseEntity.ok().body(newsDto);
 	}
 	
 	@DeleteMapping(value = "/{id}")

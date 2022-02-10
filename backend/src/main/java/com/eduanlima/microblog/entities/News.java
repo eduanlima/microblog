@@ -9,13 +9,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name= "tb_news")
@@ -37,7 +37,8 @@ public class News implements Serializable{
 	private String author;
 	private String tags;
 	
-	@OneToMany(mappedBy = "news", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "news", referencedColumnName = "id")
 	Set<Comment> comments = new HashSet<>();
 	
 	public News() {
@@ -99,6 +100,14 @@ public class News implements Serializable{
 		this.tags = tags;
 	}
 	
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void addComment(Comment comment) {
+		this.comments.add(comment);
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

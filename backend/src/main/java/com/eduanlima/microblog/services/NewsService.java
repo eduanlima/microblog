@@ -1,5 +1,6 @@
 package com.eduanlima.microblog.services;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eduanlima.microblog.dto.CommentDTO;
 import com.eduanlima.microblog.dto.NewsDTO;
+import com.eduanlima.microblog.entities.Comment;
 import com.eduanlima.microblog.entities.News;
 import com.eduanlima.microblog.repositories.NewsRepository;
 
@@ -36,6 +39,7 @@ public class NewsService {
 		News entity = new News();
 		
 		entity = setDtoInEntity(dto, entity);
+		entity.setDate(Instant.now());
 		entity = newsRepository.save(entity);
 		
 		return new NewsDTO(entity);
@@ -52,6 +56,19 @@ public class NewsService {
 		return new NewsDTO(entity);
 	}
 	
+	@Transactional
+	public NewsDTO insertComment(Integer id, CommentDTO dto) {
+		News entity = new News();
+		entity = newsRepository.getById(id);
+		
+		Comment comment = new Comment(dto.getContent(), dto.getAuthor(), Instant.now());
+		entity.addComment(comment);
+		
+		entity = newsRepository.save(entity);
+		
+		return new NewsDTO(entity);
+	}
+	
 	public void delete(Integer id) {
 		try {
 			newsRepository.deleteById(id);
@@ -63,7 +80,6 @@ public class NewsService {
 	
 	private News setDtoInEntity(NewsDTO dto, News entity) {
 		entity.setTitle(dto.getTitle());
-		entity.setDate(dto.getDate());
 		entity.setContent(dto.getContent());
 		entity.setAuthor(dto.getAuthor());
 		entity.setTags(dto.getTags());
