@@ -9,22 +9,22 @@
         <h1 class="fw-bold text-black-50">Add a news</h1>
         <div class="card mb-3">
             <div class="card-body">
-                <form>
+                <form method="post" (ngSubmit)="create()" [formGroup]="formNews">
                     <div class="form-group mb-2">
-                      <input type="text" class="form-control" placeholder="Title">
+                      <input type="text" class="form-control" placeholder="Title" (input)="setTitle($event)" formControlName="title">
                     </div>
                     <div class="form-group mb-2">
-                      <textarea class="form-control" rows="3" placeholder="Content"></textarea>
+                      <textarea class="form-control" rows="3" placeholder="Content" (input)="setContent($event)" formControlName="content"></textarea>
                     </div>
                     <div class="form-group mb-2">
-                        <input type="text" class="form-control" placeholder="Author">
+                        <input type="text" class="form-control" placeholder="Author" (input)="setAuthor($event)" formControlName="author">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Tags">
+                        <input type="text" class="form-control" placeholder="Tags" (input)="setTags($event)" formControlName="tags">
                     </div>
                     <div class="d-flex justify-content-end mt-4">
-                        <button class="btn btn-success fw-bold" type="submit">Save</button>
-                        <button class="btn btn-warning fw-bold text-white ms-2" type="submit">Cancel</button>
+                        <button class="btn btn-success fw-bold" type="submit" [disabled]="formNews.invalid">Save</button>
+                        <button class="btn btn-warning fw-bold text-white ms-2" type="button" (click)="cancel()">Cancel</button>
                     </div>
                 </form>
             </div>
