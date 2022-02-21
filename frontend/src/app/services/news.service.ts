@@ -13,6 +13,10 @@ export class NewsService {
 
   constructor( private http: HttpClient) { }
 
+  findAll(paged: boolean, page = 0): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}?paged=${paged}&page=${page}&linesPerPage=5&direction=DESC&orderBy=id`);
+  }
+
   create(news: News): Observable<News>{
     return this.http.post<News>(`${this.baseUrl}`, news);
   }

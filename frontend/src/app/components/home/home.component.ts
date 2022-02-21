@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { News } from 'src/app/models/news';
+import { NewsService } from 'src/app/services/news.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  list: News[] = [];
+
+  constructor(private service: NewsService) { }
 
   ngOnInit(): void {
+    this. findAll();
   }
 
+  findAll(): void{
+    this.service.findAll(false).subscribe({
+      next: (response) => {
+        this.list = response['content'];
+      },
+      error: (e) => {}
+    })
+  }
 }
