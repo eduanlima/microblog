@@ -17,6 +17,10 @@ export class NewsService {
     return this.http.get<any>(`${this.baseUrl}?paged=${paged}&page=${page}&linesPerPage=5&direction=DESC&orderBy=id`);
   }
 
+  findById(news: News): Observable<News>{
+    return this.http.get<News>(`${this.baseUrl}/${news.id}`);
+  }
+
   create(news: News): Observable<News>{
     return this.http.post<News>(`${this.baseUrl}`, news);
   }

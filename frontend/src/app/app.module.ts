@@ -9,7 +9,8 @@ import { ViewComponent } from './components/news/view/view.component';
 import { ListAllComponent } from './components/news/list-all/list-all.component';
 import { FormComponent } from './components/news/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CardComponent } from './components/card/card.component'; 
+import { CardComponent } from './components/card/card.component';
+import { CommentComponent } from './components/news/comment/comment.component'; 
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CardComponent } from './components/card/card.component';
     ViewComponent,
     ListAllComponent,
     FormComponent,
-    CardComponent
+    CardComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

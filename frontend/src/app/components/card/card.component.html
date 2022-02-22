@@ -4,8 +4,8 @@
             <h5 class="card-title">{{ news.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ formatDate(news.date) }}</h6>
             <p class="card-text text-truncate">{{ news.content }}</p>
-            <p class="card-text text-primary fs-6 fw-bold">{{ news.tags }}</p>
-            <button class="btn btn-primary" type="submit">See more...</button>
+            <p class="card-text text-primary fs-6 fw-bold mh-50">{{ news.tags }}</p>
+            <button routerLink="viewnews/{{ news.id }}" class="btn btn-primary" type="submit">See more...</button>
         </div>
     </div>
 </div>
