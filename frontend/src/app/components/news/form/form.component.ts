@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
   private news : News = {
     id: 0,
     title: "",
-    date: "",
+    date: new Date(),
     content: "",
     author: "",
     tags: "",

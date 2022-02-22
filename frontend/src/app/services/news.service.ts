@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { News } from '../models/news';
+import { Comment } from 'src/app/models/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class NewsService {
 
   create(news: News): Observable<News>{
     return this.http.post<News>(`${this.baseUrl}`, news);
+  }
+
+  createComment(news: News, comment: Comment): Observable<News>{
+    return this.http.post<News>(`${this.baseUrl}/${news.id}/comments`, comment);
   }
 }

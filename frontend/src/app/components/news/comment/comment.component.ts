@@ -12,12 +12,11 @@ export class CommentComponent implements OnInit {
     id: 0,
     content: "",
     author: "",
-    date: ""
+    date: new Date()
   };
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

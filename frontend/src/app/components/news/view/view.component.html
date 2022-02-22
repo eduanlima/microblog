@@ -3,34 +3,34 @@
         <a class="navbar-brand fw-bold" href="#">MicroBlog</a>
     </div>
 </nav>
-<div class="container mt-4">
+<div class="container mt-4" *ngIf="news$ | async as newsA">
     <div class="column">
         <article>
-            <h1 class="fw-bold text-black-50">{{ news.title }}</h1>
-            <h6 class="fw-bold text-secondary opacity-25">{{ formatDate(news.date) }}</h6>
-            <p>{{ news.content }}</p>
-            <h4 class="fw-bold text-black-50">{{ news.author }}</h4>
-            <h6 class="text-primary">{{ news.tags }}</h6>
+            <h1 class="fw-bold text-black-50">{{ newsA.title }}</h1>
+            <h6 class="fw-bold text-secondary opacity-25">{{ newsA.date | date: "dd-MM-yyyy" }}</h6>
+            <p>{{ newsA.content }}</p>
+            <h4 class="fw-bold text-black-50">{{ newsA.author }}</h4>
+            <h6 class="text-primary">{{ newsA.tags }}</h6>
         </article>
         <hr class="solid">
     </div>
     <div class="column">
-        <form action="" class="column">
+        <form action="post" (ngSubmit)="createComment()" class="column" [formGroup]="formComment">
             <h4 class="fw-bold text-muted">Comment</h4>
             <div class="mb-3">
-                <input type="text" class="form-control" id="inputName" placeholder="Your name here">
+                <input type="text" class="form-control" placeholder="Your name here" formControlName="author">
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="What do you think about this? "></textarea>
+                <textarea class="form-control" rows="3" placeholder="What do you think about this? " formControlName="content"></textarea>
             </div>
             <div class="col-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">Save my comment</button>
+                <button type="submit" class="btn btn-primary" [disabled]="formComment.invalid">Save my comment</button>
             </div>
         </form>
         <hr class="solid">
         <div class="content">
-            <h6 class="fw-bold text-muted opacity-50">Comments <span class="badge bg-secondary">{{ comments.length }}</span></h6>
-            <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+            <h6 class="fw-bold text-muted opacity-50">Comments <span class="badge bg-secondary">{{ newsA.comments.length }}</span></h6>
+            <app-comment *ngFor="let comment of newsA.comments" [comment]="comment"></app-comment>
         </div>
     </div>
 </div>
