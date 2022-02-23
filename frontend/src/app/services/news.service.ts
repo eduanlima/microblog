@@ -30,6 +30,10 @@ export class NewsService {
     return this.http.put<News>(`${this.baseUrl}/${news.id}`, news);
   }
 
+  delete(id: Number): Observable<void>{
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
   createComment(news: News, comment: Comment): Observable<News>{
     return this.http.post<News>(`${this.baseUrl}/${news.id}/comments`, comment);
   }

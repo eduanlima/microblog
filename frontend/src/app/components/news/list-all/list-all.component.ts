@@ -28,5 +28,4 @@ export class ListAllComponent implements OnInit {
       } 
     });
   }
-
 }
