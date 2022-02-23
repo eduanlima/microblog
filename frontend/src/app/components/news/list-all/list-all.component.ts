@@ -10,8 +10,23 @@ import { NewsService } from 'src/app/services/news.service';
 })
 export class ListAllComponent implements OnInit {
 
+  list: News[] = [];
+
   constructor(private service: NewsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.findAll();
+  }
+
+  findAll(): void{
+    this.service.findAll(false).subscribe({
+      next: (response) => {
+        this.list = response["content"];
+      },
+      error: (e) => {
+        console.log(e);
+      } 
+    });
+  }
 
 }

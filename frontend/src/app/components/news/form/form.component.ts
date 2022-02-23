@@ -64,7 +64,7 @@ export class FormComponent implements OnInit {
   }
 
   cancel(): void{
-    this.router.navigate(['']);
+    this.router.navigate(['listallnews']);
   }
 
   setTitle(event : Event){
