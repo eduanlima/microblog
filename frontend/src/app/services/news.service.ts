@@ -26,6 +26,10 @@ export class NewsService {
     return this.http.post<News>(`${this.baseUrl}`, news);
   }
 
+  update(news: News): Observable<News>{
+    return this.http.put<News>(`${this.baseUrl}/${news.id}`, news);
+  }
+
   createComment(news: News, comment: Comment): Observable<News>{
     return this.http.post<News>(`${this.baseUrl}/${news.id}/comments`, comment);
   }

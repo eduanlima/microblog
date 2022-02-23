@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { News } from 'src/app/models/news';
 import { NewsService } from 'src/app/services/news.service';
 
@@ -11,7 +11,7 @@ import { NewsService } from 'src/app/services/news.service';
 })
 export class FormComponent implements OnInit {
 
-  private news : News = {
+  news : News = {
     id: 0,
     title: "",
     date: new Date(),
@@ -23,11 +23,13 @@ export class FormComponent implements OnInit {
 
   formNews! : FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private service: NewsService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder, private service: NewsService, private router: Router, private activatedRoute: ActivatedRoute) { 
     this.configForm();
   }
 
   ngOnInit(): void {
+    this.news.id = this.activatedRoute.snapshot.paramMap.get("id")!;
+    this.checkDoUpdate();
   }
 
   configForm(){
@@ -42,25 +44,71 @@ export class FormComponent implements OnInit {
   validateRequired(input: FormControl){
     return (input.value ? null : { required: true });
   }
-  
-  create(): void{
-    this.setValues();
-
-    this.service.create(this.news).subscribe({
-      next: (response) => {
-        this.news = response;
-        console.log(this.news);
-        this.formNews.reset();
-      },
-      error: (e) => {}
-    })
-  }
 
   setValues(): void{
     this.news.title = this.formNews.controls['title'].value;
     this.news.content = this.formNews.controls['content'].value;
     this.news.author = this.formNews.controls['author'].value;
     this.news.tags = this.formNews.controls['tags'].value;
+  }
+
+  fillFields(): void{
+    this.formNews.controls['title'].setValue(this.news.title);
+    this.formNews.controls['content'].setValue(this.news.content);
+    this.formNews.controls['author'].setValue(this.news.author);
+    this.formNews.controls['tags'].setValue(this.news.tags); 
+  }
+
+  findById(): void{
+    this.service.findById(this.news).subscribe({
+      next: (response) => {
+        this.news = response;
+        this.fillFields();
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
+  }
+  
+  private create(): void{
+    this.setValues();
+
+    this.service.create(this.news).subscribe({
+      next: (response) => {
+        this.news = response;
+        this.formNews.reset();
+        this.router.navigate(["listallnews"]);
+      },
+      error: (e) => {}
+    })
+  }
+
+  private update(): void{
+    this.service.update(this.news).subscribe({
+      next: () => {
+        this.formNews.reset();
+        this.router.navigate(["listallnews"]);
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
+  }
+
+  checkDoUpdate(): void{
+    if (this.news.id != 0){
+      this.findById();
+    }
+  }
+
+  save(): void{
+    if(this.news.id != 0){
+      this.update();
+    }
+    else{
+      this.create();
+    }
   }
 
   cancel(): void{

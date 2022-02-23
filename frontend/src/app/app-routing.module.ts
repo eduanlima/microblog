@@ -19,7 +19,7 @@ const routes: Routes = [
     component: ListAllComponent,
   },
   {
-    path: 'listallnews/createnews',
+    path: 'listallnews/formnews/:id',
     component: FormComponent
   },
 ];

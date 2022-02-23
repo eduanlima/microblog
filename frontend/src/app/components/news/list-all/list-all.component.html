@@ -5,7 +5,7 @@
 </nav>
 <div class="container mt-4">
     <div class="content mb-4 d-flex justify-content-end">
-        <button class="btn btn-primary fw-bold" type="submit" routerLink="createnews">Add news</button>
+        <button class="btn btn-primary fw-bold" type="submit" routerLink="formnews/{{ 0 }}">Add news</button>
     </div>
     <div class="content">
         <app-card-list *ngFor="let news of list" [news]="news"></app-card-list>

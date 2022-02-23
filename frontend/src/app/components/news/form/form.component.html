@@ -6,10 +6,11 @@
 </nav>
 <div class="container d-flex justify-content-center mt-4">
     <div class="content w-50">
-        <h1 class="fw-bold text-black-50">Add a news</h1>
+        <h1 class="fw-bold text-black-50" [innerText]="news.id != 0 ? 'Edit news' : 'Add a news'"></h1>
         <div class="card mb-3">
             <div class="card-body">
-                <form method="post" (ngSubmit)="create()" [formGroup]="formNews">
+                <h2 class="fw-bold text-muted fs-5" *ngIf="news.id != 0">#{{ news.id }}</h2>
+                <form method="post" (ngSubmit)="save()" [formGroup]="formNews">
                     <div class="form-group mb-2">
                       <input type="text" class="form-control" placeholder="Title" (input)="setTitle($event)" formControlName="title">
                     </div>
