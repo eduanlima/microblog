@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { News } from 'src/app/models/news';
 import { NewsService } from 'src/app/services/news.service';
 
@@ -10,10 +11,11 @@ import { NewsService } from 'src/app/services/news.service';
 export class HomeComponent implements OnInit {
 
   list: News[] = [];
+  listAux: News[] = [];
 
-  constructor(private service: NewsService) { }
+  constructor(private formBuilder: FormBuilder, private service: NewsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this. findAll();
   }
 
@@ -21,8 +23,25 @@ export class HomeComponent implements OnInit {
     this.service.findAll(false).subscribe({
       next: (response) => {
         this.list = response['content'];
+        this.listAux = this.list;
       },
       error: (e) => {}
     })
+  }
+
+  searchNews(event: Event): void{
+    let search = (<HTMLInputElement>event.target).value;
+    let listSearch!: News[];
+
+    if(search.length > 3){
+      listSearch = this.list.filter((news) => {
+        return news.title.substring(0, search.length).toUpperCase() == search.toUpperCase();
+      });
+
+      this.list = listSearch.length != 0 ? listSearch : this.listAux;
+    }
+    else{
+      this.list = this.list.length != this.listAux.length ? this.listAux : this.list;
+    }
   }
 }

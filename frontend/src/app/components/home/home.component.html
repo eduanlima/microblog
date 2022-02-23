@@ -3,8 +3,7 @@
         <a class="navbar-brand fw-bold" href="#">MicroBlog</a>
         <div class="navbar-collapse justify-content-md-end" id="navbarSupportedContent">
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light" type="button">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Search" (input)="searchNews($event)">
             </form>
             <button class="btn btn-light text-primary fw-bold ms-2" type="button" routerLink="listallnews">Edit news</button>
         </div>
