@@ -16,11 +16,11 @@ export class HomeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private service: NewsService) { }
 
   ngOnInit(): void {    
-    this. findAll();
+    this. findAll(false);
   }
 
-  findAll(): void{
-    this.service.findAll(false).subscribe({
+  findAll(paged: boolean, page = 0): void{
+    this.service.findAll(paged).subscribe({
       next: (response) => {
         this.list = response['content'];
         this.listAux = this.list;

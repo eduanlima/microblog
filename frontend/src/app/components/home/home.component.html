@@ -9,9 +9,24 @@
         </div>
     </div>
 </nav>
-<div class="container">
+<div class="container min-vh-100">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 mt-4 justify-content-center">
         <app-card *ngFor="let item of list" [news]="item"></app-card>
     </div>
+    <nav class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+    </nav>
 </div>
 
